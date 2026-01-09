@@ -1,4 +1,4 @@
-Enter#!/bin/bash
+#!/bin/bash
 
 # Define colors
 GREEN='\033[0;32m'
@@ -12,10 +12,10 @@ sudo apt install python3 python3-pip python3-venv sqlite3 -y
 mkdir -p /opt/my_vpn_bot
 cd /opt/my_vpn_bot
 
-echo -e "${GREEN}>>> Downloading Files...${NC}"
-# ملاحظة: سيقوم المستخدم باستبدال الرابط هنا برابط مستودعه
-curl -sL https://raw.githubusercontent.com/USER_NAME/REPO_NAME/main/x99_core_run.py -o main_bot.py
-curl -sL https://raw.githubusercontent.com/USER_NAME/REPO_NAME/main/req_z55.txt -o requirements.txt
+echo -e "${GREEN}>>> Downloading Files from Affuyfuffyt Repository...${NC}"
+# تم تحديث الروابط هنا لتسحب من مستودعك مباشرة
+curl -sL https://raw.githubusercontent.com/Affuyfuffyt/Bot-v2ray-cntroll/main/x99_core_run.py -o main_bot.py
+curl -sL https://raw.githubusercontent.com/Affuyfuffyt/Bot-v2ray-cntroll/main/req_z55.txt -o requirements.txt
 
 echo -e "${GREEN}>>> Setting up Python Environment...${NC}"
 python3 -m venv venv
