@@ -11,8 +11,7 @@ import os
 import random
 
 # --- تكوين البوت ---
-# سيتم جلب التوكن والآيدي من ملف config أو إدخال البيئة عند التثبيت
-# سنستخدم placeholders سيقوم سكربت التثبيت باستبدالها
+# سيقوم سكربت التثبيت باستبدال هذه القيم تلقائياً
 BOT_TOKEN = "TOKEN_PLACEHOLDER"
 ADMIN_ID = "ADMIN_ID_PLACEHOLDER"
 
@@ -395,6 +394,20 @@ def delete_task(call):
     conn.close()
     bot.answer_callback_query(call.id, "تم الحذف")
     bot.delete_message(call.message.chat.id, call.message.message_id)
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("toggle_"))
+def toggle_task(call):
+    t_id = call.data.split("_")[1]
+    conn = sqlite3.connect(DB_NAME)
+    c = conn.cursor()
+    c.execute("SELECT status FROM tasks WHERE id=?", (t_id,))
+    res = c.fetchone()
+    if res:
+        new_status = 'inactive' if res[0] == 'active' else 'active'
+        c.execute("UPDATE tasks SET status=? WHERE id=?", (new_status, t_id))
+        conn.commit()
+        bot.answer_callback_query(call.id, f"تم تغيير الحالة إلى {new_status}")
+    conn.close()
 
 # --- تشغيل البوت ---
 def run_scheduler():
